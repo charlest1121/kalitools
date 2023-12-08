@@ -1,0 +1,2 @@
+-------------------------------Dec 8 2023---------------------------------
+Created base CLI Environment for installing Applications

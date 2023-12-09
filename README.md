@@ -33,5 +33,3 @@ Charles Thompson
 
 8. **Contact Information:** (TBD)
 Email: contact@charles.social
-
-### Additional Considerations

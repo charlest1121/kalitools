@@ -4,17 +4,18 @@ import java.util.List;
 import java.util.Scanner;
 
 public class CLI {
-    boolean categoryListCalled=false;
+    boolean categoryListCalled = false;
     static List<String> currentApplicationList = new ArrayList<>();
     static AppList app = new AppList();
 
-    static List<String> yesNo = new ArrayList<>();
+    static String yesNoStr = "Yes No";
+    static List<String> yesNoList = Arrays.stream(yesNoStr.split(" ")).toList();
     static String categoryStr = "Reporting Tools,Vulnerability Analysis,Wireless Attacks" +
             ",Web Application Security,Network Security,Network Utilities,Exploitation,Forensics,Stress Testing" +
             ",Password Attack,Reverse Engineering";
     static List<String> categoryList = Arrays.stream(categoryStr.split(",")).toList();
 
-    public static void Header(){
+    public static void Header() {
         System.out.println("""
                               
                               Kali Linux Tool Installation Utility
@@ -22,6 +23,7 @@ public class CLI {
                                     https://charles.social/
                 """);
     }
+
     public static void StartScreen() {
         CLI.SelectionScreen(categoryList);
         ApplicationSelectionOptions(PromptUserSelectionSingle());
@@ -51,51 +53,64 @@ public class CLI {
         return userSelectionListInt;
     }
 
-    public static void ApplicationSelectionOptions(Integer selection){
+    public static void ApplicationSelectionOptions(Integer selection) {
         int applicationMenuSelection = selection;
         currentApplicationList = AppList.GetApplicationSelection(selection);
         SelectionScreen(AppList.GetApplicationSelection(selection));
         ApplicationInstallationPrompt(PromptUserSelectionMulti(), currentApplicationList);
     }
 
-    public static void ApplicationInstallationPrompt(List<Integer> selectionNumbers, List<String> applicationList){
+    public static void ApplicationInstallationPrompt(List<Integer> selectionNumbers, List<String> applicationList) {
         //add methods of installation using apt
         String applicationsSelected = "";
-        for(int i = 0; i<=applicationList.size(); i++){
-            if(i==selectionNumbers.size()){
-                applicationsSelected= applicationList.get(selectionNumbers.get(i));
-            } else{
-                applicationsSelected= applicationList.get(selectionNumbers.get(i))+" ";
+        for (int i = 0; i < selectionNumbers.size(); i++) {
+            if (i == selectionNumbers.size()) {
+                applicationsSelected = applicationList.get(selectionNumbers.get(i));
+            } else {
+                applicationsSelected = applicationList.get(selectionNumbers.get(i)) + " ";
             }
         }
-        System.out.println("You have selected to install:\n"+ applicationsSelected + "\n\n" + "Would you like to continue?");
-        SelectionScreen(yesNo);
-
+        System.out.println("You have selected to install:\n" + applicationsSelected + "\n\n" + "Would you like to continue?");
+        SelectionScreen(yesNoList);
+        InstallApplications(PromptUserSelectionSingle());
 
 
     }
 
-    public static void InstallApplications(){
+    public static void InstallApplications(Integer choice) {
+        if(choice==0){
+
+        } else{
+
+        }
         System.out.println("Installation Not Implemented");
     }
 
-    public static void SelectionScreen(List<String> applicationList){
+    public static void SelectionScreen(List<String> applicationList) {
         //return installation screens after selection from start screen
-        int numOfRows = applicationList.size()/2;
+        int numOfRows = applicationList.size() / 2;
         int numOfSpaces = 12;
         Header();
-        for(int i = 0; i<applicationList.size(); i+=2){
+        for (int i = 0; i < applicationList.size(); i += 2) {
             String optionRowPrint = "";
-            if(i+2>applicationList.size()){
-                optionRowPrint = i + 1 + ") " + applicationList.get(i) + " ".repeat(numOfSpaces);
-            }else {
+            if (applicationList.size() > 2) {
+                if (i + 2 > applicationList.size()) {
+                    optionRowPrint = i + 1 + ") " + applicationList.get(i) + " ".repeat(numOfSpaces);
+                } else {
+                    optionRowPrint = i + 1 + ") " + applicationList.get(i) + " ".repeat(numOfSpaces) +
+                            (i + 2) + ") " + applicationList.get(i + 2);
+                }
+            } else {
                 optionRowPrint = i + 1 + ") " + applicationList.get(i) + " ".repeat(numOfSpaces) +
-                        (i + 2) + ") " + applicationList.get(i + 2);
+                        (i + 2) + ") " + applicationList.get(i + 1);
             }
             System.out.println(optionRowPrint);
         }
-        System.out.println("\n\n0) All");
-
+        if (applicationList.size() >= 2) {
+            System.out.println("\n\nE) Exit");
+        }else{
+            System.out.println("\n\n0) All");
+        }
 
     }
 

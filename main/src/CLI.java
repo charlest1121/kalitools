@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -78,12 +79,12 @@ public class CLI {
     }
 
     public static void InstallApplications(Integer choice) {
-        if(choice==0){
-
+        if(choice==1){
+            SystemCall.Echo(true, "apt -y", String.valueOf(currentApplicationList));
         } else{
-
+            System.out.println("Returning to Start Screen");
+            StartScreen();
         }
-        System.out.println("Installation Not Implemented");
     }
 
     public static void SelectionScreen(List<String> applicationList) {

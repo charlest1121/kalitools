@@ -1,14 +1,13 @@
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
 public class CLI {
-    boolean categoryListCalled = false;
+    static boolean isSafeInstall;
+    static boolean safeInstallCheck = false;
+    static boolean categoryListCalled = false;
     static List<String> currentApplicationList = new ArrayList<>();
-    static AppList app = new AppList();
-
     static String yesNoStr = "Yes No";
     static List<String> yesNoList = Arrays.stream(yesNoStr.split(" ")).toList();
     static String categoryStr = "Reporting Tools,Vulnerability Analysis,Wireless Attacks" +
@@ -25,8 +24,9 @@ public class CLI {
                 """);
     }
 
-    public static void StartScreen() {
+    public static void StartScreen() throws InterruptedException {
         CLI.SelectionScreen(categoryList);
+        categoryListCalled = true;
         ApplicationSelectionOptions(PromptUserSelectionSingle());
     }
 
@@ -54,46 +54,84 @@ public class CLI {
         return userSelectionListInt;
     }
 
-    public static void ApplicationSelectionOptions(Integer selection) {
-        int applicationMenuSelection = selection;
+    public static void ApplicationSelectionOptions(Integer selection) throws InterruptedException {
         currentApplicationList = AppList.GetApplicationSelection(selection);
         SelectionScreen(AppList.GetApplicationSelection(selection));
         ApplicationInstallationPrompt(PromptUserSelectionMulti(), currentApplicationList);
     }
 
-    public static void ApplicationInstallationPrompt(List<Integer> selectionNumbers, List<String> applicationList) {
+    public static void ApplicationInstallationPrompt(List<Integer> selectionNumbers, List<String> applicationList) throws InterruptedException {
         //add methods of installation using apt
         String applicationsSelected = "";
         for (int i = 0; i < selectionNumbers.size(); i++) {
-            if (i == selectionNumbers.size()) {
+            if (1 < selectionNumbers.size()) {
                 applicationsSelected = applicationList.get(selectionNumbers.get(i));
             } else {
                 applicationsSelected = applicationList.get(selectionNumbers.get(i)) + " ";
             }
         }
-        System.out.println("You have selected to install:\n" + applicationsSelected + "\n\n" + "Would you like to continue?");
-        SelectionScreen(yesNoList);
+        System.out.println("You have selected to install:\n");
+        for (String s : applicationsSelected.split(" ")) {
+            System.out.println(s);
+        }
+        System.out.println("\nWould you like to continue?");
+        SelectionScreen((ArrayList<String>) yesNoList);
         InstallApplications(PromptUserSelectionSingle());
 
 
     }
 
-    public static void InstallApplications(Integer choice) {
-        if(choice==1){
-            SystemCall.Echo(true, "apt -y", String.valueOf(currentApplicationList));
-        } else{
+    public static void SafeInstallPrompt() throws InterruptedException {
+        System.out.println("""
+                                
+                                
+                Would you like to safe install?
+                                
+                What is safe install?:
+                                
+                *Safe install provides packages available in Kali Linux that are
+                 available on your base distro package repository.(Recommended)*
+                """);
+        SelectionScreen(yesNoList);
+        SafeInstallActions(PromptUserSelectionSingle());
+        safeInstallCheck = true;
+
+    }
+
+    public static void SafeInstallActions(Integer choice) throws InterruptedException {
+        //1 = yes
+        //0 = no
+        if (choice == 1) {
+            System.out.println("You have selected to safe install. \n" +
+                    "Packages marked with (*) are available for installation");
+            isSafeInstall = true;
+        } else {
+            System.out.println("Proceed with caution. " +
+                    "\nInstalling foreign packages can adversely affect your system.");
+            StartScreen();
+        }
+        safeInstallCheck = true;
+    }
+
+    public static void InstallApplications(Integer choice) throws InterruptedException {
+        //1 = yes
+        //0 = no
+        if (choice == 1) {
+            SystemCall.Echo(false, "apt -y", String.valueOf(currentApplicationList));
+        } else {
             System.out.println("Returning to Start Screen");
             StartScreen();
         }
     }
 
-    public static void SelectionScreen(List<String> applicationList) {
+    public static void SelectionScreen(List<String> applicationList) throws InterruptedException {
         //return installation screens after selection from start screen
-        int numOfRows = applicationList.size() / 2;
         int numOfSpaces = 12;
-        Header();
+        if (isSafeInstall) {
+            Sources.Check(applicationList);
+        }
         for (int i = 0; i < applicationList.size(); i += 2) {
-            String optionRowPrint = "";
+            String optionRowPrint;
             if (applicationList.size() > 2) {
                 if (i + 2 > applicationList.size()) {
                     optionRowPrint = i + 1 + ") " + applicationList.get(i) + " ".repeat(numOfSpaces);
@@ -107,9 +145,10 @@ public class CLI {
             }
             System.out.println(optionRowPrint);
         }
+
         if (applicationList.size() >= 2) {
             System.out.println("\n\nE) Exit");
-        }else{
+        } else {
             System.out.println("\n\n0) All");
         }
 

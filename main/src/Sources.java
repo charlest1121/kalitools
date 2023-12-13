@@ -10,13 +10,19 @@ public class Sources {
     }
 
     public static List<String> Check(List<String> applicationListSafe) throws InterruptedException {
-        for (String entry : applicationListSafe) {
-
-                if (SystemCall.Echo(true, "apt search ", entry).contains(entry)) {
-                    System.out.println(entry + " found, can be installed in safemode*");
-                    entry.replace(entry, entry + "*");
+        if(applicationListSafe.contains("_")){
+            return applicationListSafe;
+        }
+        ArrayList<String> modifiedList = new ArrayList<>(applicationListSafe);
+        for (int i = 0;i < modifiedList.size(); i++) {
+            String entry = modifiedList.get(i);
+                String output = String.join(" ", SystemCall.Echo(true, "apt search ", entry));
+                if (output.contains((entry + "/"))) {
+                    System.out.println(entry + " found, can be installed in safemode(*)");
+                    entry = entry.replace(entry, entry + "(*)");
+                    modifiedList.set(i, entry);
                 }
         }
-        return applicationListSafe;
+        return modifiedList;
     }
 }

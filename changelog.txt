@@ -6,3 +6,6 @@ Created base System Call support for sending commands to the system
 Added safe install
 Installation now possible for safe install
 added resource checker for searching for packages already available from repositories
+-------------------------------Dec 11 2023---------------------------------
+Safe install fully operational
+Will update readme with instructions soon

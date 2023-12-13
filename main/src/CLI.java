@@ -4,15 +4,16 @@ import java.util.List;
 import java.util.Scanner;
 
 public class CLI {
+
     static boolean isSafeInstall;
     static boolean safeInstallCheck = false;
     static boolean categoryListCalled = false;
     static List<String> currentApplicationList = new ArrayList<>();
     static String yesNoStr = "Yes No";
     static List<String> yesNoList = Arrays.stream(yesNoStr.split(" ")).toList();
-    static String categoryStr = "Reporting Tools,Vulnerability Analysis,Wireless Attacks" +
-            ",Web Application Security,Network Security,Network Utilities,Exploitation,Forensics,Stress Testing" +
-            ",Password Attack,Reverse Engineering";
+    static String categoryStr = "Reporting_Tools_,Vulnerability_Analysis_,Wireless_Attacks_" +
+            ",Web_Application_Security_,Network_Security_,Network_Utilities_,Exploitation_,Forensics_,Stress_Testing_" +
+            ",Password_Attack_,Reverse_Engineering_";
     static List<String> categoryList = Arrays.stream(categoryStr.split(",")).toList();
 
     public static void Header() {
@@ -21,6 +22,9 @@ public class CLI {
                               Kali Linux Tool Installation Utility
                                 CLI produced by Charles Thompson
                                     https://charles.social/
+                    This utility should allow you to access and install various
+                   industry standard tools for cyber security focused operations.
+                       
                 """);
     }
 
@@ -62,23 +66,39 @@ public class CLI {
 
     public static void ApplicationInstallationPrompt(List<Integer> selectionNumbers, List<String> applicationList) throws InterruptedException {
         //add methods of installation using apt
-        String applicationsSelected = "";
+        List<String> applicationsSelected = new ArrayList<>();
         for (int i = 0; i < selectionNumbers.size(); i++) {
             if (1 < selectionNumbers.size()) {
-                applicationsSelected = applicationList.get(selectionNumbers.get(i));
+                applicationsSelected.add(applicationList.get(selectionNumbers.get(i)));
             } else {
-                applicationsSelected = applicationList.get(selectionNumbers.get(i)) + " ";
+                applicationsSelected.add(applicationList.get(selectionNumbers.get(i)));
             }
         }
         System.out.println("You have selected to install:\n");
-        for (String s : applicationsSelected.split(" ")) {
+        for (String s : applicationsSelected) {
             System.out.println(s);
         }
         System.out.println("\nWould you like to continue?");
-        SelectionScreen((ArrayList<String>) yesNoList);
-        InstallApplications(PromptUserSelectionSingle());
+        SelectionScreen(yesNoList);
+        InstallApplications(PromptUserSelectionSingle(), applicationsSelected);
 
 
+    }
+
+    public static void InstallApplications(Integer choice, List<String> applicationsSelected) throws InterruptedException {
+        //1 = yes
+        //0 = no
+        if (choice == 1) {
+            for(String app : applicationsSelected) {
+                SystemCall.Echo(false, "apt install -y", app);
+            }
+        } else {
+            System.out.println("You have successfully installed:\n");
+            for (String s : applicationsSelected) {
+                System.out.println(s);
+            }
+            System.out.println("Returning to Start Screen");
+        }
     }
 
     public static void SafeInstallPrompt() throws InterruptedException {
@@ -113,22 +133,11 @@ public class CLI {
         safeInstallCheck = true;
     }
 
-    public static void InstallApplications(Integer choice) throws InterruptedException {
-        //1 = yes
-        //0 = no
-        if (choice == 1) {
-            SystemCall.Echo(false, "apt -y", String.valueOf(currentApplicationList));
-        } else {
-            System.out.println("Returning to Start Screen");
-            StartScreen();
-        }
-    }
-
     public static void SelectionScreen(List<String> applicationList) throws InterruptedException {
         //return installation screens after selection from start screen
         int numOfSpaces = 12;
-        if (isSafeInstall) {
-            Sources.Check(applicationList);
+        if (isSafeInstall && !applicationList.contains("Yes")) {
+            applicationList = Sources.Check(applicationList);
         }
         for (int i = 0; i < applicationList.size(); i += 2) {
             String optionRowPrint;
@@ -136,8 +145,12 @@ public class CLI {
                 if (i + 2 > applicationList.size()) {
                     optionRowPrint = i + 1 + ") " + applicationList.get(i) + " ".repeat(numOfSpaces);
                 } else {
-                    optionRowPrint = i + 1 + ") " + applicationList.get(i) + " ".repeat(numOfSpaces) +
-                            (i + 2) + ") " + applicationList.get(i + 2);
+                    if(i+1>applicationList.size()){
+                        optionRowPrint = i + 1 + ") " + applicationList.get(i);
+                    }else {
+                        optionRowPrint = i + 1 + ") " + applicationList.get(i) + " ".repeat(numOfSpaces) +
+                                (i + 2) + ") " + applicationList.get(i + 1);
+                    }
                 }
             } else {
                 optionRowPrint = i + 1 + ") " + applicationList.get(i) + " ".repeat(numOfSpaces) +

@@ -19,71 +19,71 @@ public class AppList {
     static  List<String> informationGatheringToolsList =  Arrays.stream(informationGatheringToolsStr.split(" ")).toList();
 
     static String vulnerabilityAnalysisToolsStr = "bbqsql bed cisco-auditing-tool cisco-global-exploiter " +
-            "    cisco-ocs cisco-torch copy-router-config doona " +
-            "    dotdotpwn greenbone-security-assistant hexorbase jsql " +
-            "    lynis nmap ohrwurm openvas-cli openvas-manager " +
-            "    openvas-scanner oscanner powerfuzzer sfuzz sidguesser " +
-            "    siparmyknife sqlmap sqlninja sqlsus thc-ipv6 " +
-            "    tnscmd10g unix-privesc-check yersinia";
+            "cisco-ocs cisco-torch copy-router-config doona " +
+            "dotdotpwn greenbone-security-assistant hexorbase jsql " +
+            "lynis nmap ohrwurm openvas-cli openvas-manager " +
+            "openvas-scanner oscanner powerfuzzer sfuzz sidguesser " +
+            "siparmyknife sqlmap sqlninja sqlsus thc-ipv6 " +
+            "tnscmd10g unix-privesc-check yersinia";
     static  List<String> vulnerabilityAnalysisToolsList =  Arrays.stream(vulnerabilityAnalysisToolsStr.split(" ")).toList();
 
     static String wirelessAttacksToolsStr = "aircrack-ng asleap bluelog blueranger bluesnarfer bully " +
-            "    cowpatty crackle eapmd5pass fern-wifi-cracker ghost-phisher " +
-            "    giskismet kalibrate-rtl killerbee kismet mdk3 mfcuk " +
-            "    mfoc mfterm multimon-ng pixiewps reaver redfang " +
-            "    spooftooph wifi-honey wifitap wifite";
+            "cowpatty crackle eapmd5pass fern-wifi-cracker ghost-phisher " +
+            "giskismet kalibrate-rtl killerbee kismet mdk3 mfcuk " +
+            "mfoc mfterm multimon-ng pixiewps reaver redfang " +
+            "spooftooph wifi-honey wifitap wifite";
     static  List<String> wirelessAttacksToolsList =  Arrays.stream(wirelessAttacksToolsStr.split(" ")).toList();
 
     static String webApplicationSecurityToolsStr = "apache-users arachni bbqsql blindelephant burpsuite " +
-            "    cutycapt davtest deblaze dirb dirbuster fimap " +
-            "    funkload grabber jboss-autopwn joomscan jsql " +
-            "    maltego-teeth padbuster paros parsero plecost " +
-            "    powerfuzzer proxystrike recon-ng skipfish sqlmap " +
-            "    sqlninja sqlsus ua-tester uniscan vega w3af " +
-            "    webscarab websploit wfuzz wpscan xsser zaproxy";
+            "cutycapt davtest deblaze dirb dirbuster fimap " +
+            "funkload grabber jboss-autopwn joomscan jsql " +
+            "maltego-teeth padbuster paros parsero plecost " +
+            "powerfuzzer proxystrike recon-ng skipfish sqlmap " +
+            "sqlninja sqlsus ua-tester uniscan vega w3af " +
+            "webscarab websploit wfuzz wpscan xsser zaproxy";
     static  List<String> webApplicationSecurityToolsList =  Arrays.stream(webApplicationSecurityToolsStr.split(" ")).toList();
 
     static String networkSecurityToolsStr = "burpsuite dnschef fiked hamster-sidejack hexinject iaxflood " +
-            "    inviteflood ismtp mitmproxy ohrwurm protos-sip rebind " +
-            "    responder rtpbreak rtpinsertsound rtpmixsound sctpscan " +
-            "    siparmyknife sipp sipvicious sniffjoke sslsplit sslstrip " +
-            "    thc-ipv6 voiphopper webscarab wifi-honey wireshark xspy " +
-            "    yersinia zaproxy";
+            "inviteflood ismtp mitmproxy ohrwurm protos-sip rebind " +
+            "responder rtpbreak rtpinsertsound rtpmixsound sctpscan " +
+            "siparmyknife sipp sipvicious sniffjoke sslsplit sslstrip " +
+            "thc-ipv6 voiphopper webscarab wifi-honey wireshark xspy " +
+            "yersinia zaproxy";
     static  List<String> networkSecurityToolsList =  Arrays.stream(networkSecurityToolsStr.split(" ")).toList();
 
     static String networkUtilitiesToolsStr = "cryptcat cymothoa dbd dns2tcp http-tunnel httptunnel " +
-            "    intersect nishang polenum powersploit pwnat ridenum " +
-            "    sbd u3-pwn webshells weevely";
+            "intersect nishang polenum powersploit pwnat ridenum " +
+            "sbd u3-pwn webshells weevely";
     static  List<String> networkUtilitiesToolsList =  Arrays.stream(networkUtilitiesToolsStr.split(" ")).toList();
 
     static String exploitationToolsStr = "armitage backdoor-factory beef-xss cisco-auditing-tool " +
-            "    cisco-global-exploiter cisco-ocs cisco-torch crackle " +
-            "    jboss-autopwn linux-exploit-suggester maltego-teeth set " +
-            "    shellnoob sqlmap thc-ipv6 yersinia";
+            "cisco-global-exploiter cisco-ocs cisco-torch crackle " +
+            "jboss-autopwn linux-exploit-suggester maltego-teeth set " +
+            "shellnoob sqlmap thc-ipv6 yersinia";
     static  List<String> exploitationToolsList =  Arrays.stream(exploitationToolsStr.split(" ")).toList();
 
     static String forensicsToolsStr = "binwalk bulk-extractor chntpw cuckoo dc3dd ddrescue " +
-            "    dumpzilla extundelete foremost galleta guymager " +
-            "    iphone-backup-analyzer p0f pdf-parser pdfid pdgmail " +
-            "    peepdf volatility xplico";
+            "dumpzilla extundelete foremost galleta guymager " +
+            "iphone-backup-analyzer p0f pdf-parser pdfid pdgmail " +
+            "peepdf volatility xplico";
     static  List<String> forensicsToolsList =  Arrays.stream(forensicsToolsStr.split(" ")).toList();
 
     static String stressTestingToolsStr = "dhcpig funkload iaxflood inviteflood ipv6-toolkit mdk3 " +
-            "    reaver rtpflood slowhttptest t50 termineter thc-ipv6 " +
-            "    thc-ssl-dos";
+            "reaver rtpflood slowhttptest t50 termineter thc-ipv6 " +
+            "thc-ssl-dos";
     static  List<String> stressTestingToolsList =  Arrays.stream(stressTestingToolsStr.split(" ")).toList();
 
     static String passwordAttackToolsStr = "acccheck burpsuite cewl chntpw cisco-auditing-tool " +
-            "    cmospwd creddump crunch findmyhash gpp-decrypt " +
-            "    hash-identifier hexorbase john johnny keimpx " +
-            "    maltego-teeth maskprocessor multiforcer ncrack " +
-            "    oclgausscrack pack patator polenum rainbowcrack " +
-            "    rcracki-mt rsmangler statsprocessor thc-pptp-bruter " +
-            "    truecrack webscarab wordlists zaproxy";
+            "cmospwd creddump crunch findmyhash gpp-decrypt " +
+            "hash-identifier hexorbase john johnny keimpx " +
+            "maltego-teeth maskprocessor multiforcer ncrack " +
+            "oclgausscrack pack patator polenum rainbowcrack " +
+            "rcracki-mt rsmangler statsprocessor thc-pptp-bruter " +
+            "truecrack webscarab wordlists zaproxy";
     static  List<String> passwordAttackToolsList =  Arrays.stream(passwordAttackToolsStr.split(" ")).toList();
 
     static String reverseEngineeringToolsStr = "apktool dex2jar python-distorm3 edb-debugger jad " +
-            "    javasnoop jd ollydbg smali valgrind yara";
+            "javasnoop jd ollydbg smali valgrind yara";
     static  List<String> reverseEngineeringToolsList =  Arrays.stream(reverseEngineeringToolsStr.split(" ")).toList();
 
 public static List<String> GetApplicationSelection(Integer userInput){
